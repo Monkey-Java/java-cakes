@@ -75,7 +75,7 @@ public abstract class AbstractLogger<Log> implements Logger {
 
     /**
      * 参数数组转化成字符串数组格式.
-     *
+     *  -test
      * @param params 参数数组
      * @return string format param array
      */
