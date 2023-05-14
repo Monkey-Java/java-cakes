@@ -12,33 +12,33 @@ public interface Logger {
      * @param message message
      * @param prams prams
      */
-    void trace(String message, Object prams);
+    void trace(String message, Object ...prams);
 
     /**
      * debug日志级别打印.
      * @param message message
      * @param prams prams
      */
-    void debug(String message, Object prams);
+    void debug(String message, Object ...prams);
 
     /**
      * info日志级别打印.
      * @param message message
      * @param prams prams
      */
-    void info(String message, Object prams);
+    void info(String message, Object ...prams);
 
     /**
      * warn日志级别打印.
      * @param message message
      * @param prams prams
      */
-    void warn(String message, Object prams);
+    void warn(String message, Object ...prams);
 
     /**
      * error日志级别打印.
      * @param message message
      * @param prams prams
      */
-    void error(String message, Object prams);
+    void error(String message, Object ...prams);
 }
