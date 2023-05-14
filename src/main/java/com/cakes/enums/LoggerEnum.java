@@ -12,7 +12,7 @@ public enum LoggerEnum {
     /**
      * trance
      */
-    TRANCE(LoggerConstant.TRANCE) {
+    TRANCE(LoggerConstant.TRACE_LEVEL) {
         @Override
         public void log(Logger logger, String message, Object... params) {
             logger.trace(message, params);
@@ -21,7 +21,7 @@ public enum LoggerEnum {
     /**
      * denbug
      */
-    DEBUG(LoggerConstant.DEBUG) {
+    DEBUG(LoggerConstant.DEBUG_LEVEL) {
         @Override
         public void log(Logger logger, String message, Object... params) {
             logger.trace(message, params);
@@ -30,7 +30,7 @@ public enum LoggerEnum {
     /**
      * info
      */
-    INFO(LoggerConstant.INFO) {
+    INFO(LoggerConstant.INFO_LEVEL) {
         @Override
         public void log(Logger logger, String message, Object... params) {
             logger.info(message, params);
@@ -39,7 +39,7 @@ public enum LoggerEnum {
     /**
      * warn
      */
-    WARN(LoggerConstant.WARN) {
+    WARN(LoggerConstant.WARN_LEVEL) {
         @Override
         public void log(Logger logger, String message, Object... params) {
             logger.warn(message, params);
@@ -48,7 +48,7 @@ public enum LoggerEnum {
     /**
      * error
      */
-    ERROR(LoggerConstant.ERROR) {
+    ERROR(LoggerConstant.ERROR_LEVEL) {
         @Override
         public void log(Logger logger, String message, Object... params) {
             logger.error(message, params);

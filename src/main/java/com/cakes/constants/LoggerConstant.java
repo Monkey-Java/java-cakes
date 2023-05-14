@@ -7,23 +7,40 @@ package com.cakes.constants;
  */
 public interface LoggerConstant {
     /**
-     * trace
+     * null
      */
-    String TRANCE = "trace";
+    String NULL = "null";
     /**
-     * debug
+     * 分隔符
      */
-    String DEBUG = "debug";
+    String CTX_SYMBOL = " -> ";
     /**
-     * info
+     * 异常时的前缀
      */
-    String INFO = "info";
+    String TO_STRING_ERROR = "toStringError: ";
     /**
-     * warn
+     * 空字符串
      */
-    String WARN = "warn";
+    String EMPTY = "";
+
     /**
-     * error
+     * LEVEL_TRACE
      */
-    String ERROR = "error";
+    String TRACE_LEVEL = "trace";
+    /**
+     * LEVEL_DEBUG
+     */
+    String DEBUG_LEVEL = "debug";
+    /**
+     * LEVEL_INFO
+     */
+    String INFO_LEVEL = "info";
+    /**
+     * LEVEL_WARN
+     */
+    String WARN_LEVEL = "warn";
+    /**
+     * LEVEL_ERROR
+     */
+    String ERROR_LEVEL = "error";
 }

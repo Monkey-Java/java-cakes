@@ -11,6 +11,7 @@
     <properties>
         <slf4-api.version>1.7.25</slf4-api.version>
         <logback-classic.version>1.2.3</logback-classic.version>
+        <fastjson.version>1.2.70</fastjson.version>
     </properties>
 
     <dependencies>
@@ -24,5 +25,23 @@
             <artifactId>logback-classic</artifactId>
             <version>${logback-classic.version}</version>
         </dependency>
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
+            <version>${fastjson.version}</version>
+        </dependency>
     </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>8</source>
+                    <target>8</target>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 </project>
