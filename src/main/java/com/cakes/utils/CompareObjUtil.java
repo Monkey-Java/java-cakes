@@ -4,9 +4,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.cakes.dto.Comparison;
 
 import java.lang.reflect.Field;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * @author hebiao
@@ -15,34 +13,31 @@ import java.util.Map;
  * @return
  **/
 public class CompareObjUtil {
-
     /**
      * 比较两个对象是否存在不同字段属性
      *
-     * @param beforeObj
-     * @param afterObj
+     * @param o1
+     * @param o2
      * @return
      * @throws Exception
      */
-    private static List<Comparison> compareObj(Object beforeObj, Object afterObj) throws Exception {
+    private static List<Comparison> compareObj(Object o1, Object o2) throws Exception {
         List<Comparison> diffs = new ArrayList<>();
-
         //取出属性
-        Field[] beforeFields = beforeObj.getClass().getDeclaredFields();
-        Field[] afterFields = afterObj.getClass().getDeclaredFields();
+        Field[] beforeFields = o1.getClass().getDeclaredFields();
+        Field[] afterFields = o2.getClass().getDeclaredFields();
         Field.setAccessible(beforeFields, true);
         Field.setAccessible(afterFields, true);
-
         //遍历取出差异值
         if (beforeFields != null && beforeFields.length > 0) {
             for (int i = 0; i < beforeFields.length; i++) {
-                Object beforeValue = beforeFields[i].get(beforeObj);
-                Object afterValue = afterFields[i].get(afterObj);
-                if ((beforeValue != null && !"".equals(beforeValue) && !beforeValue.equals(afterValue)) || ((beforeValue == null || "".equals(beforeValue)) && afterValue != null)) {
+                Object o1Val = beforeFields[i].get(o1);
+                Object o2Val = afterFields[i].get(o2);
+                if ((o1Val != null && !"".equals(o1Val) && !o1Val.equals(o2Val)) || ((o1Val == null || "".equals(o1Val)) && o2Val != null)) {
                     Comparison comparison = new Comparison();
                     comparison.setField(beforeFields[i].getName());
-                    comparison.setBefore(beforeValue);
-                    comparison.setAfter(afterValue);
+                    comparison.setBefore(o1Val);
+                    comparison.setAfter(o2Val);
                     comparison.setIsUpdate(true);
                     diffs.add(comparison);
                 }
@@ -51,26 +46,26 @@ public class CompareObjUtil {
         return diffs;
     }
 
-    public static <T> T compareObjToMap(Object beforeObj, Object afterObj, Class<T> tClass) {
+    public static <T> T compareObjToMap(Object o1, Object o2, Class<T> clazz) {
 
-        if (beforeObj == null) {
-            throw new RuntimeException("原对象不能为空");
+        if (Objects.isNull(o1)) {
+            throw new IllegalArgumentException("比较对象不能为空");
         }
-        if (afterObj == null) {
-            throw new RuntimeException("新对象不能为空");
+        if (Objects.isNull(o2)) {
+            throw new IllegalArgumentException("被比较对象不能为空");
         }
-        if (!beforeObj.getClass().isAssignableFrom(afterObj.getClass())) {
-            throw new RuntimeException("两个对象不相同，无法比较");
+        if (!o1.getClass().isAssignableFrom(o2.getClass())) {
+            throw new IllegalArgumentException("两个对象不相同，无法比较");
         }
 
         List<Comparison> comparisons = new ArrayList<>();
         try {
-            comparisons = compareObj(beforeObj, afterObj);
+            comparisons = compareObj(o1, o2);
         } catch (Exception e) {
             throw new RuntimeException("比较数据对象异常！");
         }
         if (comparisons != null && comparisons.size() != 0) {
-            String jsonString = JSONObject.toJSONString(beforeObj);
+            String jsonString = JSONObject.toJSONString(o1);
             Map map = JSONObject.parseObject(jsonString, Map.class);
             comparisons.forEach(e -> {
                 if (map.containsKey(e.getField())) {
@@ -82,7 +77,7 @@ public class CompareObjUtil {
                     map.put(field, e.getAfter());
                 }
             });
-            T t = JSONObject.parseObject(JSONObject.toJSONString(map), tClass);
+            T t = JSONObject.parseObject(JSONObject.toJSONString(map), clazz);
             return t;
         }
         return null;
