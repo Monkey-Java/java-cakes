@@ -22,6 +22,11 @@ public abstract class AbstractLogger<Log> implements Logger {
      * 业务反射对象
      */
     protected Class<?> clazz;
+
+    public void setCtx(Object ctx) {
+        this.ctx = ctx;
+    }
+
     /**
      * 上下文对象
      */
