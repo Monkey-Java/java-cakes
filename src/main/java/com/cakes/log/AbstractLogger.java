@@ -23,14 +23,6 @@ public abstract class AbstractLogger<Log> implements Logger {
      */
     protected Class<?> clazz;
 
-    public void setCtx(Object ctx) {
-        this.ctx = ctx;
-    }
-
-    /**
-     * 上下文对象
-     */
-    protected Object ctx;
     /**
      * Bean序列化String的lambda(默认使用FastJSON)
      */
@@ -56,12 +48,17 @@ public abstract class AbstractLogger<Log> implements Logger {
         log.log(this, ctxToString() + message, params);
     }
 
+    protected Object getCtx() {
+        return LoggerConstant.EMPTY;
+    }
+
     /**
      * 将上下文对象转为String.
      *
      * @return context message.
      */
     private String ctxToString() {
+        Object ctx = getCtx();
         if (Objects.nonNull(ctx)) {
             return paramToString(ctx) + LoggerConstant.CTX_SYMBOL;
         } else {

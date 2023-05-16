@@ -6,9 +6,13 @@ import com.cakes.enums.LoggerEnum;
 public class Test {
     public static void main(String[] args) {
 
-        SubSlf4jLogger logger = new SubSlf4jLogger(Test.class);
-        // 例如是工号，在过滤器中可以传给日志对象。打印时，就不用手动把Tag写在日志打印中。根据Tag检索可以提升效率
-        logger.setCtx("1135955087");
+        SubSlf4jLogger logger = new SubSlf4jLogger(Test.class){
+            @Override
+            protected Object getCtx() {
+                // 例如是工号，在过滤器中可以传给日志对象。打印时，就不用手动把Tag写在日志打印中。根据Tag检索可以提升效率
+                return "113555087";
+            }
+        };
 
         // 基础打印测试
         logger.trace("我的名字是{}","MonkeyJava");
