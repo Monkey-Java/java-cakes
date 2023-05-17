@@ -64,4 +64,22 @@ public interface Logger {
      * @param params params
      */
     void logWithCtx(LoggerEnum log, String message, Object... params);
+
+    /**
+     * 根据ip进行日志打印过滤(默认为INFO,可调整).
+     *
+     * @param msg    msg
+     * @param params params
+     */
+    void logIfEqualsIp(String msg, Object... params);
+
+
+    /**
+     * 根据ip进行日志打印过滤
+     *
+     * @param log    log对象
+     * @param msg    日志基本信息
+     * @param params 日志参数信息
+     */
+    void logIfEqualsIp(LoggerEnum log, String msg, Object... params);
 }

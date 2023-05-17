@@ -4,6 +4,10 @@ import com.alibaba.fastjson.JSONObject;
 import com.cakes.constants.LoggerConstant;
 import com.cakes.enums.LoggerEnum;
 
+import java.net.InetAddress;
+import java.net.UnknownHostException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import java.util.function.Function;
 
@@ -13,7 +17,6 @@ import java.util.function.Function;
  * @author jianghaokun
  */
 public abstract class AbstractLogger<Log> implements Logger {
-
     /**
      * 核心日志对象
      */
@@ -33,6 +36,11 @@ public abstract class AbstractLogger<Log> implements Logger {
      */
     private LoggerEnum specialLog = LoggerEnum.INFO;
 
+    /**
+     * 不进行拦截日志打印的机器ip
+     */
+    private static final List<String> UN_FILTER_IPS = new ArrayList<>();
+
     protected AbstractLogger(Class<?> clazz, Log log) {
         this.clazz = clazz;
         this.log = log;
@@ -46,6 +54,33 @@ public abstract class AbstractLogger<Log> implements Logger {
     @Override
     public void logWithCtx(LoggerEnum log, String message, Object... params) {
         log.log(this, ctxToString() + message, params);
+    }
+
+    @Override
+    public void logIfEqualsIp(String msg, Object... params) {
+        logIfEqualsIp(specialLog, msg, params);
+    }
+
+    @Override
+    public void logIfEqualsIp(LoggerEnum log, String msg, Object... params) {
+        try {
+            String ip = InetAddress.getLocalHost().getHostAddress();
+            if (UN_FILTER_IPS.contains(ip)) {
+                log.log(this, msg, params);
+            }
+        } catch (UnknownHostException e) {
+            error("logIfEqualsIpError：{}，获取本机ip失败", e.getMessage());
+        }
+    }
+
+    /**
+     * 从配置中心设置日志白名单机器ip.
+     *
+     * @param unFilterIps 白名单ip
+     */
+    protected void setUnFilterIpsFormRemoteConfig(List<String> unFilterIps) {
+        UN_FILTER_IPS.clear();
+        UN_FILTER_IPS.addAll(unFilterIps);
     }
 
     protected Object getCtx() {
