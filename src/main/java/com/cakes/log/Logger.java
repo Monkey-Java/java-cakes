@@ -82,4 +82,6 @@ public interface Logger {
      * @param params 日志参数信息
      */
     void logIfEqualsIp(LoggerEnum log, String msg, Object... params);
+
+
 }
