@@ -53,15 +53,16 @@ public interface Logger {
      * 日志打印携带系统上下文(使用默认日志级别).
      *
      * @param message message
-     * @param params params
+     * @param params  params
      */
     void logWithCtx(String message, Object... params);
 
     /**
      * 日志打印携带系统上下文
-     * @param log 传入的log枚举
+     *
+     * @param log     传入的log枚举
      * @param message message
-     * @param params params
+     * @param params  params
      */
     void logWithCtx(LoggerEnum log, String message, Object... params);
 
@@ -83,5 +84,20 @@ public interface Logger {
      */
     void logIfEqualsIp(LoggerEnum log, String msg, Object... params);
 
+    /**
+     * 并行任务中打印一次日志.
+     *
+     * @param msg    msg
+     * @param params params
+     */
+    void logOnce(String msg, Object... params);
 
+    /**
+     * 并行任务中打印一次日志.
+     *
+     * @param log    log
+     * @param msg    msg
+     * @param params params
+     */
+    void logOnce(LoggerEnum log, String msg, Object... params);
 }

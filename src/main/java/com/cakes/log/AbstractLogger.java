@@ -101,6 +101,16 @@ public abstract class AbstractLogger<Log> implements Logger {
         }
     }
 
+    @Override
+    public void logOnce(String msg, Object... params) {
+
+    }
+
+    @Override
+    public void logOnce(LoggerEnum log, String msg, Object... params) {
+
+    }
+
     /**
      * 自定义序列化方式，比如用Gjson来序列化日志对象.
      *
