@@ -1,6 +1,8 @@
 package com.cakes.cache;
 
 import java.util.List;
+import java.util.function.Function;
+
 /**
  * @author jianghk
  */
@@ -8,10 +10,10 @@ public interface ICache<K, V> {
     /**
      * @return
      */
-    V get(K key);
+    <R> R get(K key, Function<V,R> mapFunction);
 
     /**
      * @return
      */
-    List<V> batchGet(List<K> keys);
+    <R> List<R> batchGet(List<K> keys,Function<V,R> mapFunction);
 }
