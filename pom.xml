@@ -13,11 +13,17 @@
         <slf4-api.version>1.7.25</slf4-api.version>
         <logback-classic.version>1.2.3</logback-classic.version>
         <fastjson.version>1.2.70</fastjson.version>
-        <ehc.version>3.10.0</ehc.version>
+        <ehc.version>3.8.1</ehc.version>
         <ohc.version>0.7.4</ohc.version>
     </properties>
 
     <dependencies>
+        <dependency>
+            <groupId>com.esotericsoftware</groupId>
+            <artifactId>kryo</artifactId>
+            <version>5.2.0</version>
+        </dependency>
+
         <dependency>
             <groupId>org.ehcache</groupId>
             <artifactId>ehcache</artifactId>
@@ -55,8 +61,6 @@
             <scope>compile</scope>
         </dependency>
     </dependencies>
-
-    <
 
     <build>
         <plugins>
